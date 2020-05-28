@@ -22,23 +22,36 @@ export const ExampleComponent = ({ text, color }) => {
 export const DragCard = (props) => {
   //get the positions
 
-  const [positions, setPositions] = useState(Array(4).fill(null));
+  const [positions, setPositions] = useState(Array(4).fill(200));
   const [color, setColor] = useState(props.color)
-
+  
+  //set the positions of before.
 
   //update the calculate new pos
 
   //drag
   const dragger = (e) => {
     setColor("blue");
+
+    //coppyPositions
+    let copyPositions = Array(4).fill(null); 
+    copyPositions[0] = e.clientX;
+    copyPositions[1] = e.clientY;
+
+    setPositions(copyPositions);
+
   }
 
 
   //render
   return (
     <div>
-      <div className={styles.test} style={{ color: color }}
-        onMouseDown={dragger.bind(this)}>Draggable Component: {props.text}</div>
+      <div className={styles.test} style={{ color: color, top: positions[1] + "px" }}
+        onMouseDown={dragger.bind(this)}>Draggable d: {props.text}</div>
+
+        <div> x and y pos are 
+          {positions}
+        </div>
 
     </div>
   )
