@@ -63,7 +63,10 @@ export const DragCard = (props) => {
 
     copyPositions[0] =  e.pageX - e.nativeEvent.offsetX;
     copyPositions[1] =  e.pageY - e.nativeEvent.offsetY;
-
+    
+    console.log("X: " + e.pageX + " Y: " + e.pageY)
+    console.log("Offset X: " + e.nativeEvent.offsetX + " Offset Y: " + e.nativeEvent.offsetY)
+    
     setPositions(copyPositions);
 
   }
