@@ -47,7 +47,7 @@ export const DragCard = (props) => {
   return (
     <div>
       <div className={styles.test} style={{ color: color, top: positions[1] + "px" }}
-        onMouseDown={dragger.bind(this)}>Draggable d: {props.text}</div>
+        onMouseMove={dragger.bind(this)}>Draggable d: {props.text}</div>
 
         <div> x and y pos are 
           {positions}
