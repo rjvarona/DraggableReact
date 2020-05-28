@@ -22,34 +22,39 @@ export const ExampleComponent = ({ text, color }) => {
 export const DragCard = (props) => {
   //get the positions
 
-  const [positions, setPositions] = useState(Array(4).fill(200));
-  const [color, setColor] = useState(props.color)
+  const [finalPosition, setPositions] = useState(Array(2).fill(200));
+  const [initPosition, setInit] = useState(Array(2).fill(200))
+  const [pressed, setPressed] = useState(false)
   
   //set the positions of before.
 
   //update the calculate new pos
 
   const posInit= (e) => {
-    let copyPositions = positions; 
 
-
-    copyPositions[3] = e.clientX;
-    copyPositions[4] = e.clientY;
-
-    setPositions(copyPositions);
+    
+    let copyPositions =  Array(2).fill(200); 
+    
+    copyPositions[0] =  e.clientX;
+    copyPositions[1] = e.clientY;
+    
+    setInit(copyPositions);
+    setPressed(true);
  
   }
 
   //drag
   const dragger = (e) => {
-    setColor("blue");
+
+    
+    if(!pressed){
+      return;
+    }
 
     //coppyPositions
-    let copyPositions = positions; 
-
-
-    copyPositions[0] = copyPositions[3] - e.clientX;
-    copyPositions[1] = copyPositions[4] - e.clientY;
+    let copyPositions =  Array(4).fill(200); 
+    copyPositions[0] =  initPosition[0] - e.clientX;
+    copyPositions[1] =  initPosition[1] - e.clientY;
 
     setPositions(copyPositions);
 
@@ -59,12 +64,12 @@ export const DragCard = (props) => {
   //render
   return (
     <div>
-      <div className={styles.test} style={{ left: positions[0] + "px", top: positions[1] + "px" }}
+      <div className={styles.test} style={{ left: finalPosition[0] + "px", top: finalPosition[1] + "px" }}
         onClick={posInit.bind(this)}
         onMouseMove={dragger.bind(this)}>Draggable d: {props.text}</div>
 
         <div> x and y pos are 
-          {positions}
+          {finalPosition}
         </div>
 
     </div>
