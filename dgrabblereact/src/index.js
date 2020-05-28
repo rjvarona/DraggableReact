@@ -29,14 +29,27 @@ export const DragCard = (props) => {
 
   //update the calculate new pos
 
+  const posInit= (e) => {
+    let copyPositions = positions; 
+
+
+    copyPositions[3] = e.clientX;
+    copyPositions[4] = e.clientY;
+
+    setPositions(copyPositions);
+ 
+  }
+
   //drag
   const dragger = (e) => {
     setColor("blue");
 
     //coppyPositions
-    let copyPositions = Array(4).fill(null); 
-    copyPositions[0] = e.clientX;
-    copyPositions[1] = e.clientY;
+    let copyPositions = positions; 
+
+
+    copyPositions[0] = copyPositions[3] - e.clientX;
+    copyPositions[1] = copyPositions[4] - e.clientY;
 
     setPositions(copyPositions);
 
@@ -46,7 +59,8 @@ export const DragCard = (props) => {
   //render
   return (
     <div>
-      <div className={styles.test} style={{ color: color, top: positions[1] + "px" }}
+      <div className={styles.test} style={{ left: positions[0] + "px", top: positions[1] + "px" }}
+        onClick={posInit.bind(this)}
         onMouseMove={dragger.bind(this)}>Draggable d: {props.text}</div>
 
         <div> x and y pos are 
