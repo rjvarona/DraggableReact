@@ -5,7 +5,7 @@ import styles from './styles.module.css'
 //make this draggable
 
 
-debugger
+// debugger
 
 
 
@@ -47,7 +47,7 @@ export const DragCard = (props) => {
   const dragger = (e) => {
 
     
-    if(!pressed){
+    if(pressed === false){
       return;
     } 
 
@@ -61,13 +61,16 @@ export const DragCard = (props) => {
     let changeY = e.clientY - initPosition[1];
 
 
-    copyPositions[0] =  (offSetX + changeX);
-    copyPositions[1] =  (offSetY + changeY);
+    copyPositions[0] =  e.pageX - e.nativeEvent.offsetX;
+    copyPositions[1] =  e.pageY - e.nativeEvent.offsetY;
 
     setPositions(copyPositions);
 
   }
 
+  const close = (e) => {
+    setPressed(false);
+  }
 
   //render
   return (
@@ -75,7 +78,11 @@ export const DragCard = (props) => {
       <div 
         className={styles.test} style={{ left: finalPosition[0] + "px", top: finalPosition[1] + "px" }}
         onClick={posInit.bind(this)}
-        onMouseMove={dragger.bind(this)}>Draggable d: {props.text}</div>
+        onMouseMove={dragger.bind(this)}
+        onMouseUp={close.bind(this)}
+        >
+        Draggable d: {props.text}
+        </div>
 
         <div> x and y pos are 
           {finalPosition}
