@@ -49,12 +49,20 @@ export const DragCard = (props) => {
     
     if(!pressed){
       return;
-    }
+    } 
 
     //coppyPositions
-    let copyPositions =  Array(4).fill(200); 
-    copyPositions[0] =  initPosition[0] - e.clientX;
-    copyPositions[1] =  initPosition[1] - e.clientY;
+    let copyPositions =  Array(2).fill(null);
+
+    let offSetX = e.clientX - e.nativeEvent.offsetX;
+    let offSetY = e.clientY - e.nativeEvent.offsetY;
+
+    let changeX = e.clientX - initPosition[0];
+    let changeY = e.clientY - initPosition[1];
+
+
+    copyPositions[0] =  (offSetX + changeX);
+    copyPositions[1] =  (offSetY + changeY);
 
     setPositions(copyPositions);
 
@@ -64,7 +72,8 @@ export const DragCard = (props) => {
   //render
   return (
     <div>
-      <div className={styles.test} style={{ left: finalPosition[0] + "px", top: finalPosition[1] + "px" }}
+      <div 
+        className={styles.test} style={{ left: finalPosition[0] + "px", top: finalPosition[1] + "px" }}
         onClick={posInit.bind(this)}
         onMouseMove={dragger.bind(this)}>Draggable d: {props.text}</div>
 
